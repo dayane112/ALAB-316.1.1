@@ -1,9 +1,20 @@
 // Menu data structure
 var menuLinks = [
-    { text: 'about', href: '/about' },
-    { text: 'catalog', href: '/catalog' },
-    { text: 'orders', href: '/orders' },
-    { text: 'account', href: '/account' },
+    {text: 'about', href: '/about'},
+    {text: 'catalog', href: '#', subLinks: [
+      {text: 'all', href: '/catalog/all'},
+      {text: 'top selling', href: '/catalog/top'},
+      {text: 'search', href: '/catalog/search'},
+    ]},
+    {text: 'orders', href: '#' , subLinks: [
+      {text: 'new', href: '/orders/new'},
+      {text: 'pending', href: '/orders/pending'},
+      {text: 'history', href: '/orders/history'},
+    ]},
+    {text: 'account', href: '#', subLinks: [
+      {text: 'profile', href: '/account/profile'},
+      {text: 'sign out', href: '/account/signout'},
+    ]},
     ];
 
 // Part 1
@@ -60,13 +71,99 @@ menuLinks.forEach((link) => {
 });
 
 
+// DOM Manipulation (Part Two)
+// Part 3: Creating the Submenu
+// Select and cache the <nav id="sub-menu"> element in a variable named subMenuEl.
+let subMenuEl = document.getElementById(`sub-menu`);
+
+// Set the height subMenuEl element to be "100%".
+subMenuEl.style.height = '100%';
+
+// Set the background color of subMenuEl to the value stored in the --sub-menu-bg CSS custom property.
+subMenuEl.style.backgroundColor = `var(--sub-menu-bg)`;
+
+// Add the class of flex-around to the subMenuEl element.
+subMenuEl.classList.add('flex-around');
+
+// Set the CSS position property of subMenuEl to the value of absolute.
+subMenuEl.style.position = 'absolute';
+// subMenuEl.style.position: absolute
+
+// Set the CSS top property of subMenuEl to the value of 0.
+subMenuEl.style.top = '0';
 
 
+// Part 4: Adding Menu Interaction
+// Select and cache the all of the <a> elements inside of topMenuEl in a variable named topMenuLinks.
+let topMenuLinks = document.querySelector('a')
+
+// Attach a delegated 'click' event listener to topMenuEl.
+topMenuEl.addEventListener('click', topClick)
+
+    // The first line of code of the event listener function should call the event object's preventDefault() method.
+    function topClick(event){
+        event.preventDefault();
+
+        // The second line of code of the function should immediately return if the element clicked was not an <a> element.
+        // let c = event.type
+        
+        console.log(event.srcElement.localName)
+        if(event.srcElement.localName !== 'a')  return;
+        
+        // Log the content of the <a> to verify the handler is working.
+        // console.log(topMenuLinks)
+        
+
+        // The event listener should add the active class to the <a> element that was clicked, unless it was already active, in which case it should remove it.
+
+        let srcLocation = event.srcElement.localName
+        if(srcLocation.getAttrbute('class', 'a')){
+            srcLocation.forEach(srcLocation => {
+                srcLocation.addEventListener('click', () => {
+                    document.querySelector('links');
+                
+                    classList.remove('active');
+                    srcLocation.classList.add('active');
+                    subMenuEl.style.top = '0';
+                        
+                })
+            })
+            console.log(srcLocation)
+        }
+
+    }
+   
+  
+
+// Part 5: Adding Submenu Interaction
+// Within the event listener, if the clicked <a> element does not yet have a class of "active" (it was inactive when clicked):
+
+    // If the clicked <a> element's "link" object within menuLinks has a subLinks property (all do, except for the "link" object for ABOUT), set the CSS top property of subMenuEl to 100%.
+    subMenuEl.style.top = '100';
+
+    // Otherwise, set the CSS top property of subMenuEl to 0.
+        // Hint: Caching the "link" object will come in handy for passing its subLinks array later.
+    subMenuEl.style.top = '0';
+
+    
+
+// Clear the current contents of subMenuEl.
+subMenuEl = document.getElementById('sub-menu');
+subMenuEl.innerHTML = '';
+
+// Iterate over the subLinks array, passed as an argument, and for each "link" object:
 
 
+    // Create an <a> element.
 
 
+    // Add an href attribute to the <a>, with the value set by the href property of the "link" object.
 
+
+    // Set the element's content to the value of the text property of the "link" object.
+                
+                
+    // Append the new element to the subMenuEl.
 
 
 
